@@ -12,8 +12,8 @@ main() {
         await unpackResources(stagingDir, true, appDir: 'example/default_app');
         expect(fs.file('$stagingDir/$kAppiumTemplateZip').existsSync(), isTrue);
       }, overrides: <Type, Generator>{
-        Platform: () => FakePlatform.fromPlatform(const LocalPlatform())
-          ..environment = {kCIEnvVar: 'true', 'TEAM_ID': 'team_id'},
+        Platform: () =>
+            FakePlatform(environment: {kCIEnvVar: 'true', 'TEAM_ID': 'team_id'})
 //        Logger: () => VerboseLogger(StdoutLogger()),
       });
     });
@@ -46,8 +46,8 @@ main() {
         }
         expect(str, expected());
       }, overrides: <Type, Generator>{
-        Platform: () => FakePlatform.fromPlatform(const LocalPlatform())
-          ..environment = {kCIEnvVar: 'true', 'TEAM_ID': 'team_id'},
+        Platform: () => FakePlatform(
+            environment: {kCIEnvVar: 'true', 'TEAM_ID': 'team_id'}),
 //        Logger: () => VerboseLogger(StdoutLogger()),
       });
 
@@ -68,8 +68,8 @@ main() {
               reason: '$dstPath not found');
         }
       }, overrides: <Type, Generator>{
-        Platform: () => FakePlatform.fromPlatform(const LocalPlatform())
-          ..environment = {kCIEnvVar: 'true', 'TEAM_ID': 'team_id'},
+        Platform: () => FakePlatform(
+            environment: {kCIEnvVar: 'true', 'TEAM_ID': 'team_id'}),
 //        Logger: () => VerboseLogger(StdoutLogger()),
       });
 
