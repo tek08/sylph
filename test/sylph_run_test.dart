@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io' as io;
 
 import 'package:fake_process_manager/fake_process_manager.dart';
 import 'package:file/memory.dart';
@@ -11,7 +12,6 @@ import 'package:sylph/src/sylph_run.dart';
 import 'package:test/test.dart';
 import 'package:tool_base/tool_base.dart' hide Config;
 import 'package:tool_base_test/tool_base_test.dart';
-import 'dart:io' as io;
 
 import 'src/common.dart';
 
@@ -591,19 +591,20 @@ main() {
 //      Logger: () => VerboseLogger(StdoutLogger()),
       FileSystem: () => fs,
       OperatingSystemUtils: () => OperatingSystemUtils(),
-      Platform: () => FakePlatform.fromPlatform(const LocalPlatform())
-        ..operatingSystem = 'macos'
-        ..environment = {
-          kCIEnvVar: 'true',
-          'TEAM_ID': 'team_id',
-          'PUBLISHING_MATCH_CERTIFICATE_REPO':
-              'PUBLISHING_MATCH_CERTIFICATE_REPO',
-          'MATCH_PASSWORD': 'MATCH_PASSWORD',
-          'SSH_SERVER': 'SSH_SERVER',
-          'SSH_SERVER_PORT': 'SSH_SERVER_PORT',
-          'AWS_ACCESS_KEY_ID': 'AWS_ACCESS_KEY_ID',
-          'AWS_SECRET_ACCESS_KEY': 'AWS_SECRET_ACCESS_KEY',
-        },
+      Platform: () => FakePlatform(
+            operatingSystem: 'macos',
+            environment: {
+              kCIEnvVar: 'true',
+              'TEAM_ID': 'team_id',
+              'PUBLISHING_MATCH_CERTIFICATE_REPO':
+                  'PUBLISHING_MATCH_CERTIFICATE_REPO',
+              'MATCH_PASSWORD': 'MATCH_PASSWORD',
+              'SSH_SERVER': 'SSH_SERVER',
+              'SSH_SERVER_PORT': 'SSH_SERVER_PORT',
+              'AWS_ACCESS_KEY_ID': 'AWS_ACCESS_KEY_ID',
+              'AWS_SECRET_ACCESS_KEY': 'AWS_SECRET_ACCESS_KEY',
+            },
+          )
     });
   });
 
@@ -672,8 +673,7 @@ main() {
       FileSystem: () => fs,
       OperatingSystemUtils: () => OperatingSystemUtils(),
       ConcurrentJobs: () => FakeConcurrentJobs(),
-      Platform: () => FakePlatform.fromPlatform(const LocalPlatform())
-        ..operatingSystem = 'macos',
+      Platform: () => FakePlatform(operatingSystem: 'macos'),
     });
   });
 

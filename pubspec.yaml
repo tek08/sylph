@@ -7,30 +7,33 @@ environment:
   sdk: '>=2.2.2 <3.0.0'
 
 dependencies:
+  args: ^2.3.2
+  collection: ^1.14.12
+  duration: ^2.0.8
+  isolate: ^2.1.1
   path: ^1.6.2
-  args: ^1.5.1
-  yaml: ^2.1.15
+  process: ^4.2.4
   resource: ^2.1.5
   sprintf: ^4.0.2
-  isolate: ^2.0.2
-  duration: ^2.0.8
+#  tool_base: ^1.9.5+1
+  tool_base:
+    git: https://github.com/tek08/tool_base.git
+#    path: ../tool_base
   version: ^1.0.3
+  yaml: ^3.1.1
   yamlicious: ^0.1.0
-  tool_base: ^1.9.5+1
-  process: ^3.0.9
-  collection: ^1.14.12
 
 dev_dependencies:
-  test: ^1.0.0
-  pedantic: ^1.8.0+1
-  tool_base_test:
-    git: https://github.com/mmcc007/tool_base_test.git
-#    path: ../tool_base_test
   fake_process_manager:
-    git: https://github.com/mmcc007/fake_process_manager.git
+    git: https://github.com/tek08/fake_process_manager.git
 #    path: ../fake_process_manager
-  mockito: ^4.1.0
-  file: ^5.0.7
+  file: ^6.1.4
+  mockito: ^5.3.2
+  pedantic: ^1.8.0+1
+  test: ^1.22.2
+  tool_base_test:
+    git: https://github.com/tek08/tool_base_test.git
+#    path: ../tool_base_test
 
 executables:
   sylph: main

@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:sylph/src/bundle.dart';
 import 'package:sylph/src/base/concurrent_jobs.dart';
+import 'package:sylph/src/base/devices.dart';
+import 'package:sylph/src/base/utils.dart';
+import 'package:sylph/src/bundle.dart';
 import 'package:sylph/src/config.dart';
 import 'package:sylph/src/device_farm.dart';
-import 'package:sylph/src/base/devices.dart';
 import 'package:sylph/src/resources.dart';
 import 'package:sylph/src/sylph_run.dart';
-import 'package:sylph/src/base/utils.dart';
 import 'package:sylph/src/validator.dart';
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
@@ -100,9 +100,11 @@ void main() {
       final projectName = 'flutter test';
       final jobTimeoutMinutes = 5;
       final result = setupProject(projectName, jobTimeoutMinutes);
-      final expected =
-          'arn:aws:devicefarm:us-west-2:122621792560:project:c43f0049-7b2f-42ed-9e4b-c6c46de9de23';
-      expect(result, expected);
+      RegExp regExp =
+          RegExp(r'arn:aws:devicefarm:[a-z0-9-]+:[0-9]+:project:[a-z0-9-]+');
+      Matcher matcher =
+          predicate((x) => x is String && regExp.hasMatch(result));
+      expect(result, matcher);
     }, skip: isCI());
 
     test('find device ARN', () {
@@ -462,7 +464,7 @@ void main() {
 
     test('substitute MAIN and TESTS for actual debug main and tests', () async {
       final filePath = 'test/sylph_test.yaml';
-      final config = await parseYamlFile(filePath);
+      final config = parseYamlFile(filePath);
       final test_suite = config['test_suites'][0];
       final expectedMainEnvVal = test_suite['main'];
       final expectedTestsEnvVal = test_suite['tests'].join(",");
